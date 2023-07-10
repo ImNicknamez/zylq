@@ -1,3 +1,4 @@
+--//thanks Max for helping me :)
 local GuiLibrary = {}
 local nothing = [[
 
@@ -372,29 +373,56 @@ local nothing = [[
     lsu5.HorizontalAlignment = Enum.HorizontalAlignment.Center
     lsu5.SortOrder = Enum.SortOrder.LayoutOrder
     
-    -- arraylist
+    -- arraylist :omegalol:
     local array = Instance.new("ScreenGui")
-    local arrayframe = Instance.new("Frame")
-    local UIListLayout = Instance.new("UIListLayout")
-    
-    
-    array.Name = "array"
-    array.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    array.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    array.ResetOnSpawn = false
-    
-    arrayframe.Name = "arrayframe"
-    arrayframe.Parent = array
-    arrayframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    arrayframe.BackgroundTransparency = 1.000
-    arrayframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    arrayframe.BorderSizePixel = 0
-    arrayframe.Position = UDim2.new(0.83291769, 0, 0, 0)
-    arrayframe.Size = UDim2.new(0.167082295, 0, 0.939999998, 0)
-    
-    UIListLayout.Parent = arrayframe
-    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+local arrayframe = Instance.new("Frame")
+local UIListLayout = Instance.new("UIListLayout")
+
+array.Name = "array"
+array.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+array.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+array.ResetOnSpawn = false
+
+arrayframe.Name = "arrayframe"
+arrayframe.Parent = array
+arrayframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+arrayframe.BackgroundTransparency = 1.000
+arrayframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+arrayframe.BorderSizePixel = 0
+arrayframe.Position = UDim2.new(0.83291769, 0, 0, 0)
+arrayframe.Size = UDim2.new(0.167082295, 0, 0.939999998, 0)
+
+UIListLayout.Parent = arrayframe
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+function ArrayAdd(text)
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = arrayframe
+    TextLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    TextLabel.BackgroundTransparency = 0.200
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.Text = text
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 20.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Right
+
+    local textSize = TextLabel.TextBounds
+    TextLabel.Size = UDim2.new(0, textSize.X, 0, 23)
+
+    TextLabel.LayoutOrder = -textSize.X
+end
+
+function ArrayRemove(text)
+    local labels = arrayframe:GetChildren()
+    for _, label in ipairs(labels) do
+        if label:IsA("TextLabel") and label.Text == text then
+            label:Destroy()
+            break
+        end
+    end
+end
 
     local function OXZPCGS_fake_script() -- HorionGui.GuiBind 
         local script = Instance.new('LocalScript', ScreenGui)
@@ -465,3 +493,17 @@ local nothing = [[
         return TogFunction
     end
 return GuiLibrary
+
+--[[ example
+local Button = GuiLibrary.CreateOptionsButton({
+    Name = "im just a button",
+    Tab = Combat,
+    Function = function(callback)
+       if callback then
+        print("kys")
+       else
+        print("die")
+       end
+    end,
+})
+]]
