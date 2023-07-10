@@ -2,8 +2,8 @@ local GuiLibrary = {}
 local nothing = [[
 
 ]]
-    if not isfile("ZylaSettings.json") then
-        writefile("ZylaSettings.json", nothing)
+    if not isfile("ZylqSettings.json") then
+        writefile("ZylqSettings.json", nothing)
     end
 	local ScreenGui = Instance.new("ScreenGui")
 	local Highlights = Instance.new("Frame")
