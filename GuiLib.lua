@@ -507,3 +507,5 @@ local Button = GuiLibrary.CreateOptionsButton({
     end,
 })
 ]]
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/zylq/main/PlaceIdCheck/6872274481.lua", true))()
