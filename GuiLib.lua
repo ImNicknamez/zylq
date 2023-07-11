@@ -1,4 +1,5 @@
 --//thanks Max for helping me :)
+local v = "1.0"                     --// it's version checker
 local GuiLibrary = {}
 local nothing = [[
 
@@ -15,6 +16,7 @@ local nothing = [[
 	local combat = Instance.new("ScrollingFrame")
 	local Highlights_2 = Instance.new("Frame")
 	local tab_2 = Instance.new("Frame")
+    local Version = Instance.new("TextLabel")
 	local forlabel_2 = Instance.new("Frame")
 	local MainText_2 = Instance.new("TextLabel")
 	local MainImage_2 = Instance.new("ImageLabel")
@@ -63,6 +65,17 @@ local nothing = [[
     Highlights.Size = UDim2.new(0, 214, 0, 481)
     Highlights.Active = true
     Highlights.Draggable = true
+
+    Version.Name = "Version"
+    Version.Parent = ScreenGui
+    Version.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Version.BackgroundTransparency = 1.000
+    Version.Position = UDim2.new(0.8733055, 0, 0.944567621, 0)
+    Version.Size = UDim2.new(0, 242, 0, 50)
+    Version.Font = Enum.Font.SourceSans
+    Version.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Version.TextSize = 40.000
+    Version.Text = v
 
     tab.Name = "tab"
     tab.Parent = Highlights
@@ -375,7 +388,7 @@ local nothing = [[
     
     -- arraylist :omegalol:
     local array = Instance.new("ScreenGui")
-local arrayframe = Instance.new("Frame")
+    local arrayframe = Instance.new("Frame")
 local UIListLayout = Instance.new("UIListLayout")
 
 array.Name = "array"
@@ -424,7 +437,7 @@ function ArrayRemove(text)
     end
 end
 
-    local function OXZPCGS_fake_script() -- HorionGui.GuiBind 
+    local function GuiBindfr()
         local script = Instance.new('LocalScript', ScreenGui)
     
         
@@ -442,7 +455,7 @@ end
         end)
         
     end
-    coroutine.wrap(OXZPCGS_fake_script)()
+    coroutine.wrap(GuiBindfr)()
     function GuiLibrary.CreateOptionsButton(argstable) --> you can add only combat, blatant, visual, misc, world <--
         local TogFunction = {} 
         local toggled = false
