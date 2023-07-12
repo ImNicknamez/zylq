@@ -409,34 +409,6 @@ UIListLayout.Parent = arrayframe
 UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-function ArrayAdd(text)
-    local TextLabel = Instance.new("TextLabel")
-    TextLabel.Parent = arrayframe
-    TextLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    TextLabel.BackgroundTransparency = 0.200
-    TextLabel.BorderSizePixel = 0
-    TextLabel.Font = Enum.Font.SourceSans
-    TextLabel.Text = text
-    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.TextSize = 20.000
-    TextLabel.TextXAlignment = Enum.TextXAlignment.Right
-
-    local textSize = TextLabel.TextBounds
-    TextLabel.Size = UDim2.new(0, textSize.X, 0, 23)
-
-    TextLabel.LayoutOrder = -textSize.X
-end
-
-function ArrayRemove(text)
-    local labels = arrayframe:GetChildren()
-    for _, label in ipairs(labels) do
-        if label:IsA("TextLabel") and label.Text == text then
-            label:Destroy()
-            break
-        end
-    end
-end
-
     local function GuiBindfr()
         local script = Instance.new('LocalScript', ScreenGui)
     
