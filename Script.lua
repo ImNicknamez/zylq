@@ -313,7 +313,7 @@ end
     local repstorage = game:GetService("ReplicatedStorage")
     local KnockbackTable = debug.getupvalue(require(game:GetService("ReplicatedStorage").TS.damage["knockback-util"]).KnockbackUtil.calculateKnockbackVelocity, 1)
     local cstore = require(lplr.PlayerScripts.TS.ui.store).ClientStore
-    local bedwars = { -- this is litterally the only part of the script that isnt mine :/
+    local bedwars = { -- the part i skidded
         ["DropItemRemote"] = getremote(debug.getconstants(getmetatable(KnitClient.Controllers.ItemDropController).dropItemInHand)),
         ["SprintController"] = KnitClient.Controllers.SprintController,
         ["CombatConstant"] = require(repstorage.TS.combat["combat-constant"]).CombatConstant,
