@@ -1,3 +1,4 @@
+--This is used for something.
 local NotWorkingScreen = Instance.new("ScreenGui")
 local Back = Instance.new("Frame")
 local Main = Instance.new("Frame")
