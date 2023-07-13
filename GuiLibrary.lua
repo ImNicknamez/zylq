@@ -72,7 +72,7 @@
 		Label.Position = UDim2.new(0, 0, 0.128205135, 0)
 		Label.Size = UDim2.new(0, 238, 0, 28)
 		Label.Font = Enum.Font.Unknown
-		Label.Text = name
+		Label.Text = name or "zylq client"
 		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Label.TextSize = 20.000
 		
