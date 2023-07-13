@@ -14,6 +14,7 @@ if Patched == true then
       NotWorkingScreen.Name = "NotWorkingScreen"
       NotWorkingScreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
       NotWorkingScreen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+      NotWorkingScreen.ResetOnSpawn = false
       
       Back.Name = "Back"
       Back.Parent = NotWorkingScreen
@@ -23,6 +24,8 @@ if Patched == true then
       Back.BorderSizePixel = 0
       Back.Position = UDim2.new(0.38269031, 0, 0.386918008, 0)
       Back.Size = UDim2.new(0, 450, 0, 203)
+      Back.Active = true
+      Back.Draggable = true
       
       Main.Name = "Main"
       Main.Parent = Back
