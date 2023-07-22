@@ -1,5 +1,28 @@
---//credits monia//configsystem,function and whitelist//7granddad//vapentity//
-local GuiLibrary = {}
+--//credits monia//configsystem,function and whitelist//7granddad//vapentity//i will protect it soons in next update
+local GuiLibrary = {
+    Settings = {}
+}
+function writeassets(text)
+    local textlabel = Instance.new("TextLabel")
+    textlabel.Size = UDim2.new(1, 0, 0, 36)
+    textlabel.Text = "Downloading "..text
+    textlabel.BackgroundTransparency = 1
+    textlabel.TextStrokeTransparency = 0
+    textlabel.TextSize = 30
+    textlabel.Font = Enum.Font.SourceSans
+    textlabel.TextColor3 = Color3.new(1, 1, 1)
+    textlabel.Position = UDim2.new(0, 0, 0, -36)
+    textlabel.Parent = game.CoreGui.RobloxGui
+end
+local ZylqAssetsTable = {
+    ["Zylq/assets/Logo.png"] = "rbxassetid://14049259616"
+}
+if not isfolder("Zylq") then
+    makefolder("Zylq")
+    writeassets("Zylq/")
+end
+local ScreenGui
+local configsystem = true
 local entity = loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/Libraries/entityHandler.lua", true))()
 local WhitelistFunction = loadstring(game:HttpGet("https://raw.githubusercontent.com/NTDCore/Chattags/main/stupidwhitelists.lua", true))()
 local lplr = game.Players.LocalPlayer
@@ -148,7 +171,80 @@ end
         --["PaintRemote"] = getremote(debug.getconstants(KnitClient.Controllers.PaintShotgunController.fire)),
     }
 	
-
+    function warningNotification(name, text, time)
+		local notification = Instance.new("ScreenGui")
+		local NotifyFrame = Instance.new("Frame")
+		local UICorner = Instance.new("UICorner")
+		local LabelFrame = Instance.new("Frame")
+		local UICorner_2 = Instance.new("UICorner")
+		local Label = Instance.new("TextLabel")
+		local ColorEnable = Instance.new("Frame")
+		local EnableLabel = Instance.new("TextLabel")
+		
+		--Properties:
+		
+		notification.Name = "notification"
+		notification.Parent = game.CoreGui
+		notification.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		
+		NotifyFrame.Name = "Notify Frame"
+		NotifyFrame.Parent = notification
+		NotifyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		NotifyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		NotifyFrame.BorderSizePixel = 0
+		NotifyFrame.Position = UDim2.new(0.841645896, 0, 0.411764711, 0)
+		NotifyFrame.Size = UDim2.new(0, 239, 0, 150)
+		
+		UICorner.CornerRadius = UDim.new(0, 3)
+		UICorner.Parent = NotifyFrame
+		
+		LabelFrame.Name = "LabelFrame"
+		LabelFrame.Parent = NotifyFrame
+		LabelFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		LabelFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		LabelFrame.BorderSizePixel = 0
+		LabelFrame.Position = UDim2.new(0, 0, -0.00156860356, 0)
+		LabelFrame.Size = UDim2.new(0, 238, 0, 39)
+		
+		UICorner_2.CornerRadius = UDim.new(0, 3)
+		UICorner_2.Parent = LabelFrame
+		
+		Label.Name = "Label"
+		Label.Parent = LabelFrame
+		Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Label.BackgroundTransparency = 1.000
+		Label.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Label.BorderSizePixel = 0
+		Label.Position = UDim2.new(0, 0, 0.128205135, 0)
+		Label.Size = UDim2.new(0, 238, 0, 28)
+		Label.Font = Enum.Font.Unknown
+		Label.Text = name
+		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Label.TextSize = 20.000
+		
+		ColorEnable.Name = "ColorEnable"
+		ColorEnable.Parent = NotifyFrame
+		ColorEnable.BackgroundColor3 = Color3.fromRGB(50,205,50)
+		ColorEnable.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		ColorEnable.BorderSizePixel = 0
+		ColorEnable.Position = UDim2.new(0, 0, 0.933333337, 0)
+		ColorEnable.Size = UDim2.new(0, 239, 0, 10)
+		
+		EnableLabel.Name = "EnableLabel"
+		EnableLabel.Parent = NotifyFrame
+		EnableLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		EnableLabel.BackgroundTransparency = 1.000
+		EnableLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		EnableLabel.BorderSizePixel = 0
+		EnableLabel.Position = UDim2.new(0, 0, 0.333333343, 0)
+		EnableLabel.Size = UDim2.new(0, 238, 0, 50)
+		EnableLabel.Font = Enum.Font.Arial
+		EnableLabel.Text = text
+		EnableLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		EnableLabel.TextSize = 26.000
+        wait(time)
+        notification:Destroy()
+    end
     local runFunction = function(func)
         func()
     end      
@@ -156,16 +252,17 @@ end
     local userId = lplr.UserId
     local nothing = [[
 
-    ]]local cam = game:GetService("Workspace").CurrentCamera
+    ]]
+    local cam = game:GetService("Workspace").CurrentCamera
     local modules = {}
     
     local BedwarsSwords = require(game:GetService("ReplicatedStorage").TS.games.bedwars["bedwars-swords"]).BedwarsSwords
     function hashFunc(vec) 
         return {value = vec}
     end
-    local function GetInventory(plr)
+    local function GetInvenatory(plr)
         if not plr then 
-            return {items = {}, armor = {}}
+            return {items = {}, armor = {}}    
         end
     
         local suc, ret = pcall(function() 
@@ -244,10 +341,10 @@ end
             SwordController = KnitClient.Controllers.SwordController
         }
     end)
-    local function getCurrentSword()
+    local function getCurrentScythe()
         local sword, swordslot, swordrank = nil, nil, 0
         for i5, v5 in pairs(modules.getCurrentInventory().items) do
-            if v5.itemType:lower():find("sword") or v5.itemType:lower():find("blade") or v5.itemType:lower():find("dao") or v5.itemType:lower():find("stone_great_hammer") or v5.itemType:lower():find("diamond_great_hammer") or v5.itemType:lower():find("scythe")  then
+            if v5.itemType:lower():find("scythe") or v5.itemType:lower():find("dagger") then
                 if modules.ItemMeta[v5.itemType].sword.damage > swordrank then
                     sword = v5
                     swordslot = i5
@@ -257,7 +354,20 @@ end
         end
         return sword, swordslot
     end
-    
+    local function getCurrentSword()
+        local sword, swordslot, swordrank = nil, nil, 0
+        for i5, v5 in pairs(modules.getCurrentInventory().items) do
+            if v5.itemType:lower():find("scythe") or v5.itemType:lower():find("hammer") or v5.itemType:lower():find("sword") or v5.itemType:lower():find("dagger") then
+                if modules.ItemMeta[v5.itemType].sword.damage > swordrank then
+                    sword = v5
+                    swordslot = i5
+                    swordrank = modules.ItemMeta[v5.itemType].sword.damage
+                end
+            end
+        end
+        return sword, swordslot
+    end
+
     local function switchItem(tool)
         local args = {
             [1] = {
@@ -266,7 +376,7 @@ end
         }
         
         game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SetInvItem"):InvokeServer(unpack(args))    
-        repeat task.wait() until lplr.Character.HandInvItem.Value == tool
+        repeat wait() until lplr.Character.HandInvItem.Value == tool
     end
     
     local function switchToAndUseTool(block, legit)
@@ -425,7 +535,7 @@ end
             return nearestPlayer
         end
     end
-	local ScreenGui = Instance.new("ScreenGui")
+	ScreenGui = Instance.new("ScreenGui")
 	local Highlights = Instance.new("Frame")
 	local tab = Instance.new("Frame")
 	local forlabel = Instance.new("Frame")
@@ -463,8 +573,8 @@ end
 	local lsu5 = Instance.new("UIListLayout")
 	local dim = Instance.new("Frame")
 
-	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-	ScreenGui.ResetOnSpawn = true
+	ScreenGui.Parent = game.CoreGui
+	ScreenGui.ResetOnSpawn = false
 	ScreenGui.IgnoreGuiInset = true
 
     dim.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -796,13 +906,12 @@ end
     local array = Instance.new("ScreenGui")
     local arrayframe = Instance.new("Frame")
     local UIListLayout = Instance.new("UIListLayout")
-    
-    
+
     array.Name = "array"
-    array.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    array.Parent = game.CoreGui
     array.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     array.ResetOnSpawn = false
-    
+
     arrayframe.Name = "arrayframe"
     arrayframe.Parent = array
     arrayframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -811,10 +920,12 @@ end
     arrayframe.BorderSizePixel = 0
     arrayframe.Position = UDim2.new(0.83291769, 0, 0, 0)
     arrayframe.Size = UDim2.new(0.167082295, 0, 0.939999998, 0)
-    
+
     UIListLayout.Parent = arrayframe
     UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+    local buttonbind = true
 
     local function OXZPCGS_fake_script() -- HorionGui.GuiBind 
         local script = Instance.new('LocalScript', ScreenGui)
@@ -824,7 +935,7 @@ end
         local ScreenGui = script.Parent
         
         UserInputService.InputBegan:Connect(function(input)
-            if input.KeyCode == Enum.KeyCode.Insert then
+            if input.KeyCode == Enum.KeyCode.V then
                 if ScreenGui.Enabled == false then
                     ScreenGui.Enabled = true
                 else
@@ -835,21 +946,176 @@ end
         
     end
     coroutine.wrap(OXZPCGS_fake_script)()
+    function GuiLibrary:SelfDestruct()
+        ScreenGui:Destroy()
+        array:Destroy()
+        buttonbind = false
+        configsystem = false
+        warningNotification("Zylq", "Gui SelfDestruct!", 4)
+    end
+
+
+    function GuiLibrary.add(text)
+        local TextLabel = Instance.new("TextLabel")
+        TextLabel.Parent = arrayframe
+        TextLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        TextLabel.BackgroundTransparency = 0.100
+        TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel.BorderSizePixel = 1
+        TextLabel.Font = Enum.Font.SourceSans
+        TextLabel.Text = text
+        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.TextSize = 20.000
+        TextLabel.TextXAlignment = Enum.TextXAlignment.Right
+
+        local textSize = TextLabel.TextBounds
+        TextLabel.Size = UDim2.new(0, textSize.X, 0, 23)
+
+        TextLabel.LayoutOrder = -textSize.X
+    end
+
+    function GuiLibrary.remove(text)
+        local labels = arrayframe:GetChildren()
+        for _, label in ipairs(labels) do
+            if label:IsA("TextLabel") and label.Text == text then
+                label:Destroy()
+                break
+            end
+        end
+    end
+    local SettingsT = {
+
+    }
+    
+    local Name = "zylqConfig.JSON"
+
+    pcall(function()
+        if not pcall(function() readfile(Name) end) then
+            writefile(Name, game:service'HttpService':JSONEncode(SettingsT))
+        end
+        writefile(Name, game:service'HttpService':JSONEncode(SettingsT))
+
+        Settings = game:service'HttpService':JSONEncode(readfile(Name))
+    end)
+    local lplr = game.Players.LocalPlayer
+    local ItemTable = debug.getupvalue(require(game.ReplicatedStorage.TS.item["item-meta"]).getItemMeta, 1)
+    local InventoryUtil = require(game:GetService("ReplicatedStorage").TS.inventory["inventory-util"]).InventoryUtil
+    local howmuchihateblacks = math.huge
+    
+    local IsAlive = function(blackmonkeyboy)
+        blackmonkeyboy = blackmonkeyboy or lplr
+        return blackmonkeyboy and tostring(blackmonkeyboy.Team) ~= 'Spectators' and blackmonkeyboy.Character ~= nil and blackmonkeyboy.Character:FindFirstChild('HumanoidRootPart') and blackmonkeyboy.Character:FindFirstChild("Humanoid") and blackmonkeyboy.Character.Humanoid.Health > 0 or false 
+    end
+    
+    local GetInventory = function(blackboy)
+        blackboy = blackboy or lplr
+        return InventoryUtil.getInventory(blackboy)
+    end
+    
+    local getRemoteName = function(black, index)
+        local tableTargetted = debug.getconstants(black[index])
+        local iSaved = nil
+        for i, v in pairs(tableTargetted) do
+            if v == 'Client' then iSaved = i+1 end
+            if iSaved ~= nil then return tostring(tableTargetted[iSaved]) end
+        end
+        return nil
+    end
+    
+    local GetBestSword = function()
+        local dmg = 0
+        local sword = nil
+        for i, v in pairs(GetInventory().items) do
+            if v.itemType:lower():find('sword') or v.itemType:lower():find('scythe') or v.itemType:lower():find('blade') then
+                if ItemTable[v.itemType].sword.damage > dmg then
+                    sword = v.tool
+                end
+            end
+        end
+        return sword
+    end
+    
+    local getScaffoldBlock = function()
+        local Inventory = GetInventory()
+        for i, v in pairs(Inventory.items) do
+            if ItemTable[v.itemType].block ~= nil then return v.itemType end
+        end
+        return 'black'
+    end
+    
+    local setToY = 0
+    local blackie = nil
+    
+    local setMotionY = function(value, set)
+        setToY = value
+        if set then
+            blackie = lplr.Character.Humanoid.Jumping:Connect(function(IsJumping)
+                print(IsJumping)
+                if IsJumping then
+                    print('jumped')
+                    lplr.Character.HumanoidRootPart.Velocity += Vector3.new(0, setToY*500, 0)
+                end
+            end)
+        else
+            if blackie ~= nil then blackie:Disconnect() end
+        end
+    end
+    
+    local ClientBlockEngine = require(lplr.PlayerScripts.TS.lib["block-engine"]["client-block-engine"]).ClientBlockEngine
+    local BlockBase = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["block-engine"].out.client.placement["block-placer"]).BlockPlacer
+    local BlockUtils = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["block-engine"].out).BlockEngine
+    local BlockController = BlockBase.new(ClientBlockEngine, getScaffoldBlock())
+    
+    local returnScaffoldPosition = function(vector)
+        return Vector3.new(vector.X/3, vector.Y/3, vector.Z/3)
+    end
+    
+    local IsAllowedAtPosition = function(position)
+        return BlockUtils:isAllowedPlacement(lplr, getScaffoldBlock(), Vector3.new(position.X, position.Y, position.Z))
+    end
+    
+    local PlaceBlock = function(position)
+        return BlockController:placeBlock(returnScaffoldPosition(position))
+    end
+    
+    local HashVector = function(black)
+        return {value = black}
+    end    
+    
+    local KnitClient = debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
+    local Client = require(game:GetService("ReplicatedStorage").TS.remotes).default.Client
+    local HitRemoteName = getRemoteName(getmetatable(KnitClient.Controllers.SwordController), 'attackEntity')
+    local HitRemote = game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].net.out._NetManaged[HitRemoteName]
+    local kbtable = debug.getupvalue(require(game:GetService("ReplicatedStorage").TS.damage["knockback-util"]).KnockbackUtil.calculateKnockbackVelocity, 1)
+    
+    local function getwoolamount()
+        local value = 0
+        for i,v in pairs(lplr.Character:FindFirstChild("InventoryFolder").Value:GetChildren()) do
+            if string.lower(v.Name):find("wool") then
+                value = value + v:GetAttribute("Amount")
+            end
+        end
+        return value
+    end      
     function GuiLibrary.CreateOptionsButton(argstable) --> you can add only combat, blatant, visual, misc, world <--
         local TogFunction = {} 
-        local toggled = false
+        local tname = argstable["Name"]
+        local callback = argstable["Function"]
+        local DefaultT = argstable["Default"]
+        local toggled = DefaultT
         local color = false
+        table.insert(SettingsT, Name)
         local notification = Instance.new("ScreenGui")
 
         
-        --Properties:
+        --Properties
         
         notification.Name = "notification"
-        notification.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+        notification.Parent = game.CoreGui
         notification.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         
-
-        local DefaultT = argstable["Default"] or false
+        local NotifyFrame
+    
         local button = Instance.new("TextButton")
         button.Name = "button"
         button.Parent = argstable["Tab"]
@@ -857,148 +1123,26 @@ end
         button.BorderColor3 = Color3.fromRGB(0, 0, 0)
         button.BorderSizePixel = 0
         button.Size = UDim2.new(0, 200, 0, 33)
-        button.Text = argstable["Name"] or "button"
+        button.Text = tname
         button.Font = Enum.Font.SourceSans
         button.TextColor3 = Color3.fromRGB(255, 255, 255)
         button.TextSize = 21.000
         button.MouseButton1Click:Connect(function()
             toggled = not toggled
-            pcall(argstable.Function, toggled)
+            pcall(callback, toggled)
             if color == false then
-                --[[
-                local NotifyFrame = Instance.new("Frame")
-                local UICorner = Instance.new("UICorner")
-                local LabelFrame = Instance.new("Frame")
-                local UICorner_2 = Instance.new("UICorner")
-                local ColorEnable = Instance.new("Frame")
-                local EnableLabel = Instance.new("TextLabel")
-                NotifyFrame.Name = "Notify Frame"
-                NotifyFrame.Parent = notification
-                NotifyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-                NotifyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                NotifyFrame.BorderSizePixel = 0
-                NotifyFrame.Position = UDim2.new(0.841645896, 0, 0.411764711, 0)
-                NotifyFrame.Size = UDim2.new(0, 239, 0, 150)
-                
-                UICorner.CornerRadius = UDim.new(0, 3)
-                UICorner.Parent = NotifyFrame
-                
-                LabelFrame.Name = "LabelFrame"
-                LabelFrame.Parent = NotifyFrame
-                LabelFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-                LabelFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                LabelFrame.BorderSizePixel = 0
-                LabelFrame.Position = UDim2.new(0, 0, -0.00156860356, 0)
-                LabelFrame.Size = UDim2.new(0, 238, 0, 39)
-                
-                UICorner_2.CornerRadius = UDim.new(0, 3)
-                UICorner_2.Parent = LabelFrame
-                
-                Label.Name = "Label"
-                Label.Parent = LabelFrame
-                Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Label.BackgroundTransparency = 1.000
-                Label.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Label.BorderSizePixel = 0
-                Label.Position = UDim2.new(0, 0, 0.128205135, 0)
-                Label.Size = UDim2.new(0, 238, 0, 28)
-                Label.Font = Enum.Font.Unknown
-                Label.Text = "Module Toggled"
-                Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-                Label.TextSize = 23.000
-                
-                ColorEnable.Name = "ColorEnable"
-                ColorEnable.Parent = NotifyFrame
-                ColorEnable.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ColorEnable.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                ColorEnable.BorderSizePixel = 0
-                ColorEnable.Position = UDim2.new(0, 0, 0.933333337, 0)
-                ColorEnable.Size = UDim2.new(0, 239, 0, 10)
-                
-                EnableLabel.Name = "EnableLabel"
-                EnableLabel.Parent = NotifyFrame
-                EnableLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                EnableLabel.BackgroundTransparency = 1.000
-                EnableLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                EnableLabel.BorderSizePixel = 0
-                EnableLabel.Position = UDim2.new(0, 0, 0.333333343, 0)
-                EnableLabel.Size = UDim2.new(0, 238, 0, 50)
-                EnableLabel.Font = Enum.Font.Arial
-                EnableLabel.Text = argstable["Name"] .. "Enabled"
-                EnableLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                EnableLabel.TextSize = 26.000
-                --]]
+                GuiLibrary.add(argstable["Name"])
                 button.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
                 color = true
+                warningNotification("Module Toggled", argstable["Name"].." Enabled", 2)
             else
-                --[[
-                local NotifyFrame = Instance.new("Frame")
-                local UICorner = Instance.new("UICorner")
-                local LabelFrame = Instance.new("Frame")
-                local UICorner_2 = Instance.new("UICorner")
-                local ColorEnable = Instance.new("Frame")
-                local EnableLabel = Instance.new("TextLabel")
-                NotifyFrame.Name = "Notify Frame"
-                NotifyFrame.Parent = notification
-                NotifyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-                NotifyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                NotifyFrame.BorderSizePixel = 0
-                NotifyFrame.Position = UDim2.new(0.841645896, 0, 0.411764711, 0)
-                NotifyFrame.Size = UDim2.new(0, 239, 0, 150)
-                
-                UICorner.CornerRadius = UDim.new(0, 3)
-                UICorner.Parent = NotifyFrame
-                
-                LabelFrame.Name = "LabelFrame"
-                LabelFrame.Parent = NotifyFrame
-                LabelFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-                LabelFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                LabelFrame.BorderSizePixel = 0
-                LabelFrame.Position = UDim2.new(0, 0, -0.00156860356, 0)
-                LabelFrame.Size = UDim2.new(0, 238, 0, 39)
-                
-                UICorner_2.CornerRadius = UDim.new(0, 3)
-                UICorner_2.Parent = LabelFrame
-                
-                Label.Name = "Label"
-                Label.Parent = LabelFrame
-                Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Label.BackgroundTransparency = 1.000
-                Label.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                Label.BorderSizePixel = 0
-                Label.Position = UDim2.new(0, 0, 0.128205135, 0)
-                Label.Size = UDim2.new(0, 238, 0, 28)
-                Label.Font = Enum.Font.Unknown
-                Label.Text = "Module Toggled"
-                Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-                Label.TextSize = 23.000
-                
-                ColorEnable.Name = "ColorEnable"
-                ColorEnable.Parent = NotifyFrame
-                ColorEnable.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ColorEnable.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                ColorEnable.BorderSizePixel = 0
-                ColorEnable.Position = UDim2.new(0, 0, 0.933333337, 0)
-                ColorEnable.Size = UDim2.new(0, 239, 0, 10)
-                
-                EnableLabel.Name = "EnableLabel"
-                EnableLabel.Parent = NotifyFrame
-                EnableLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                EnableLabel.BackgroundTransparency = 1.000
-                EnableLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                EnableLabel.BorderSizePixel = 0
-                EnableLabel.Position = UDim2.new(0, 0, 0.333333343, 0)
-                EnableLabel.Size = UDim2.new(0, 238, 0, 50)
-                EnableLabel.Font = Enum.Font.Arial
-                EnableLabel.Text = argstable["Name"] .. "Enabled"
-                EnableLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                EnableLabel.TextSize = 26.000
-                --]]
+                GuiLibrary.remove(argstable["Name"])
                 color = false
                 button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                warningNotification("Module Toggled", argstable["Name"].." Disabled", 2)
             end
         end)
-
+        
         local TextButton = Instance.new("TextButton")
         TextButton.Parent = button
         TextButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -1029,6 +1173,7 @@ end
             
             UserInputService.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.Keyboard then
+                    if buttonbind == true then
                     local keyPressed = input.KeyCode.Name
                     if changeEnabled then
                         TextLabel.Text = keyPressed
@@ -1037,16 +1182,21 @@ end
                     elseif keyPressed == selectedKey then
                     if toggled == false then
                     	toggled = true
-                        color = true
-                        pcall(argstable.Function, toggled)
+                        color = true    
+                        pcall(callback, toggled)
                         button.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+                        GuiLibrary.add(argstable["Name"])
+                        warningNotification("Module Toggled", argstable["Name"].." Enabled", 3)
                     else
                     	toggled = false
                         color = false
-                    	pcall(argstable.Function, toggled)
+                    	pcall(callback, toggled)
                         button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                        GuiLibrary.remove(argstable["Name"])
+                        warningNotification("Module Toggled", argstable["Name"].." Disabled", 3)
                     	end
                     end
+                end
                 end
             end)
             
@@ -1059,85 +1209,717 @@ end
             if TogOn then
                 toggled = true
                 color = true
-                pcall(argstable.Function, toggled)
+                GuiLibrary.add(argstable["Name"])
+                pcall(callback, toggled)
                 button.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+                warningNotification("Module Toggled", argstable["Name"].." Enabled", 3)
             else
                 toggled = false
                 color = false
-                pcall(argstable.Function, toggled)
+                GuiLibrary.remove(argstable["Name"])
+                pcall(callback, toggled)
                 button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                warningNotification("Module Toggled", argstable["Name"].." Disabled", 3)
             end
         end
-        task.spawn(function()
-            if DefaultT then
-                TogFunction.ToggleButton(DefaultT)
-            end
-        end)
+        if DefaultT then
+            TogFunction.ToggleButton(true)
+        end
         return TogFunction
     end
 
-    local Settings = {
-        Killaura = false,
-        Velocity = false
+    local SelfDestruct = {Enabled = false}
+    SelfDestruct = GuiLibrary.CreateOptionsButton({
+        Name = "SelfDestruct",
+        Tab = misc,
+        Default = false,
+        Function = function(callback)
+            if callback then
+                GuiLibrary:SelfDestruct()
+                SelfDestruct.ToggleButton(false)
+            end
+        end,
+    })
+
+    local bedwarsStore = {
+        attackReach = 0,
+        attackReachUpdate = tick(),
+        blocks = {},
+        blockPlacer = {},
+        blockPlace = tick(),
+        blockRaycast = RaycastParams.new(),
+        equippedKit = "none",
+        forgeMasteryPoints = 0,
+        forgeUpgrades = {},
+        grapple = tick(),
+        inventories = {},
+        localInventory = {
+            inventory = {
+                items = {},
+                armor = {}
+            },
+            hotbar = {}
+        },
+        localHand = {},
+        matchState = 0,
+        matchStateChanged = tick(),
+        pots = {},
+        queueType = "bedwars_test",
+        zephyrOrb = 0
     }
 
+
+    local function getItem(itemName, inv)
+        for slot, item in pairs(inv or bedwarsStore.localInventory.inventory.items) do
+            if item.itemType == itemName then
+                return item, slot
+            end
+        end
+        return nil
+    end
+    
+    local function getItemNear(itemName, inv)
+        for slot, item in pairs(inv or bedwarsStore.localInventory.inventory.items) do
+            if item.itemType == itemName or item.itemType:find(itemName) then
+                return item, slot
+            end
+        end
+        return nil
+    end
+
+
+    local Mark = Instance.new("ScreenGui")
+    local Fps = Instance.new("TextLabel")
+    local Ping = Instance.new("TextLabel")
+    local TextLabel = Instance.new("TextLabel")
+
+
+    Mark.Name = "Mark"
+    Mark.Parent = game.CoreGui
+    Mark.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    Fps.Name = "Fps"
+    Fps.Parent = Mark
+    Fps.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Fps.BackgroundTransparency = 1.000
+    Fps.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Fps.BorderSizePixel = 0
+    Fps.Position = UDim2.new(0.0660847872, 0, 0.29058823, 0)
+    Fps.Size = UDim2.new(0, 371, 0, 50)
+    Fps.Font = Enum.Font.SourceSansSemibold
+    Fps.Text = "[Fps : 60]"
+    Fps.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Fps.TextSize = 25.000
+    Fps.TextWrapped = true
+    Fps.TextXAlignment = Enum.TextXAlignment.Left
+    Fps.TextYAlignment = Enum.TextYAlignment.Top
+
+    Ping.Name = "Ping"
+    Ping.Parent = Mark
+    Ping.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Ping.BackgroundTransparency = 1.000
+    Ping.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Ping.BorderSizePixel = 0
+    Ping.Position = UDim2.new(0, 0, 0.29058823, 0)
+    Ping.Size = UDim2.new(0, 371, 0, 50)
+    Ping.Font = Enum.Font.SourceSansSemibold
+    Ping.Text = "Zylq"
+    Ping.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Ping.TextSize = 25.000
+    Ping.TextWrapped = true
+    Ping.TextXAlignment = Enum.TextXAlignment.Left
+    Ping.TextYAlignment = Enum.TextYAlignment.Top
+
+    TextLabel.Parent = Mark
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Position = UDim2.new(0.122817956, 0, 0.29058823, 0)
+    TextLabel.Size = UDim2.new(0, 371, 0, 50)
+    TextLabel.Font = Enum.Font.SourceSansSemibold
+    TextLabel.Text = "[Ping : 100]"
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 25.000
+    TextLabel.TextWrapped = true
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TextLabel.TextYAlignment = Enum.TextYAlignment.Top
+            spawn(function()
+                            game:GetService("RunService").Heartbeat:Connect(function()
+                                local ping = tonumber(game:GetService("Stats"):FindFirstChild("PerformanceStats").Ping:GetValue())
+                                ping = math.floor(ping)
+                                TextLabel.Text = "   [Ping] : ".. ping
+                        end)
+                end)
+    spawn(function()
+        local RunService = game:GetService("RunService")
+        local FpsLabel = Fps
+        
+        local TimeFunction = RunService:IsRunning() and time or os.clock
+        
+        local LastIteration, Start
+        local FrameUpdateTable = {}
+        
+        local function loopupdate()
+            LastIteration = TimeFunction()
+            for Index = #FrameUpdateTable, 1, -1 do
+                FrameUpdateTable[Index + 1] = FrameUpdateTable[Index] >= LastIteration - 1 and FrameUpdateTable[Index] or nil
+            end
+        
+            FrameUpdateTable[1] = LastIteration
+            FpsLabel.Text = "[Fps] : " .. tostring(math.floor(TimeFunction() - Start >= 1 and #FrameUpdateTable or #FrameUpdateTable / (TimeFunction() - Start))) .. ""
+        end
+        
+        Start = TimeFunction()
+        RunService.Heartbeat:Connect(loopupdate)
+    end)
+
+    
     runFunction(function()
-        local killauraswing = true --// change this to false if u dont want sword swing
+        local FovChanger = {Enabled = false}
+        local Fov = workspace.CurrentCamera.FieldOfView
+        FovChanger = GuiLibrary.CreateOptionsButton({
+            Name = "FovChanger",
+            Tab = misc,
+            Function = function(callback)
+                FovChanger.Enabled = callback
+                if callback then
+                    task.spawn(function()
+                        repeat wait()
+                            Fov = 120
+                        until (not FovChanger.Enabled)
+                    end)
+                else
+                    Fov = 100
+                end
+            end
+        })
+    end)
+    
+    runFunction(function()
+        local Disabler = {Enabled = false}
+        Disabler = GuiLibrary.CreateOptionsButton({
+            Name = "Disabler",
+            Tab = misc,
+            Function = function(callback)
+                Disabler.Enabled = callback
+                if callback then
+                    task.spawn(function()
+                        repeat
+                            wait(0.03)
+                            local item = getItemNear("scythe")
+                            if item and lplr.Character.HandInvItem.Value == item.tool then 
+                                bedwars.ClientHandler:Get("ScytheDash"):SendToServer({direction = Vector3.new(9e9, 9e9, 9e9)})
+                            end
+                        until (not Disabler.Enabled)
+                    end)
+                end
+            end
+        })
+    end)
+    runFunction(function()
+        local InfFly = {Enabled = false}
+        local part
+        local oldchar
+        local funnyFly
+        InfFly = GuiLibrary.CreateOptionsButton({
+            Name = "Infinite Fly",
+            Tab = visual,
+            Function = function(callback)
+                if callback then
+                    oldchar = lplr.Character
+                    oldchar.Archivable = true
+                    oldchar.PrimaryPart.Anchored = false
+                    local origy = entity.character.HumanoidRootPart.Position.y;
+                    part = Instance.new("Part", workspace);
+                    part.Size = Vector3.new(1, 1, 1);
+                    part.Name = "BetterFlyPart"
+                    part.Transparency = 1;
+                    part.Anchored = true;
+                    part.CanCollide = false;
+                    cam.CameraSubject = part;
+                        
+                    RunLoops:BindToHeartbeat("FunnyFlyPart", 1, function(Delta)			
+                        local pos = lplr.character.HumanoidRootPart.Position;
+                        part.Position = Vector3.new(pos.x, origy, pos.z);				
+                    end);
+                    local cf = entity.character.HumanoidRootPart.CFrame
+                    entity.character.HumanoidRootPart.CFrame = CFrame.new(cf.x, 300000, cf.z)
+                    if entity.character.HumanoidRootPart.Position.X < 50000 then 
+                        entity.character.HumanoidRootPart.CFrame *= CFrame.new(0, 100000, 0)
+                    end
+                else
+                    RunLoops:UnbindFromHeartbeat("FunnyFlyPart");
+				local pos = entity.character.HumanoidRootPart.Position;
+				local rcparams = RaycastParams.new();
+				rcparams.FilterType = Enum.RaycastFilterType.Whitelist;
+				rcparams.FilterDescendantsInstances = {workspace.Map};
+				rc = workspace:Raycast(Vector3.new(pos.x, 300, pos.z), Vector3.new(0, -1000, 0), rcparams);
+				if (rc and rc.Position) then
+					entity.character.HumanoidRootPart.CFrame = CFrame.new(rc.Position) * CFrame.new(0, 3, 0);
+				end
+				cam.CameraSubject = lplr.Character;
+				part:Destroy();
+				RunLoops:BindToHeartbeat("FunnyFlyVeloEnd", 1, function(Delta)
+					local entity = game.Players.LocalPlayer.Character
+					local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+					if humanoidRootPart then
+						local ray = Ray.new(humanoidRootPart.Position, Vector3.new(0, -1, 0) * 1000)
+						local part, position = workspace:FindPartOnRay(ray, character)
+						if part then
+							entity.CFrame = CFrame.new(position)
+						end
+					end				
+					
+				end);
+                wait(0.5)
+                warningNotification("InfFly", "Wait Few Second To Not Flag", 2.5)
+				RunLoops:UnbindFromHeartbeat("FunnyFlyVeloEnd");
+                end
+            end
+        })
+    end)
+    local scythedo = false
+    runFunction(function()
+        local anims = {
+            Normal = {
+                {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(295), math.rad(55), math.rad(290)), Time = 0.05},
+                {CFrame = CFrame.new(0.69, -0.71, 0.6) * CFrame.Angles(math.rad(200), math.rad(60), math.rad(1)), Time = 0.05}
+            },
+            Slow = {
+                {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(295), math.rad(55), math.rad(290)), Time = 0.15},
+                {CFrame = CFrame.new(0.69, -0.71, 0.6) * CFrame.Angles(math.rad(200), math.rad(60), math.rad(1)), Time = 0.15}
+            },
+            New = {
+                {CFrame = CFrame.new(0.69, -0.77, 1.47) * CFrame.Angles(math.rad(-33), math.rad(57), math.rad(-81)), Time = 0.12},
+                {CFrame = CFrame.new(0.74, -0.92, 0.88) * CFrame.Angles(math.rad(147), math.rad(71), math.rad(53)), Time = 0.12}
+            },
+            Latest = {
+                {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-51)), Time = 0.1},
+                {CFrame = CFrame.new(0.16, -1.16, 1) * CFrame.Angles(math.rad(-179), math.rad(54), math.rad(33)), Time = 0.1}
+            },
+            ["VerticalSpin"] = {
+                {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(8), math.rad(5)), Time = 0.1},
+                {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(180), math.rad(3), math.rad(13)), Time = 0.1},
+                {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(90), math.rad(-5), math.rad(8)), Time = 0.1},
+                {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(-0), math.rad(-0)), Time = 0.1}
+            },
+            Exhibition = {
+                {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.1},
+                {CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.2}
+            },
+            ["ExhibitionOld"] = {
+                {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.15},
+                {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.05},
+                {CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.1},
+                {CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.05},
+                {CFrame = CFrame.new(0.63, -0.1, 1.37) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.15}
+            }
+        }
+        local killauraswing = false
         local killaurarange = {["Value"] = 21}
         local killauraremote = require(game:GetService("ReplicatedStorage").TS.games.bedwars["bedwars-swords"]).BedwarsMelees
         local Killaura = false
-        local sword = getCurrentSword()
-        local function attackEntity(plr)
-            local root = plr.Character.HumanoidRootPart
-            if not root then
-                return nil
-            end
-            
-            local selfrootpos = lplr.Character.HumanoidRootPart.Position
-            local selfpos = selfrootpos + (killaurarange["Value"] > 14 and (selfrootpos - root.Position).magnitude > 14 and (CFrame.lookAt(selfrootpos, root.Position).lookVector * 4) or Vector3.zero)
-    
-    
-            local args = {
-                [1] = {
-                    ["chargedAttack"] = {
-                        ["chargeRatio"] = 0
-                    },
-                    ["entityInstance"] = plr.Character,
-                    ["validate"] = {
-                        ["raycast"] = {
-                            ["cameraPosition"] = hashvec(cam.CFrame.Position),
-                            ["cursorDirection"] = hashvec(Ray.new(cam.CFrame.Position, root.CFrame.Position).Unit.Direction)
-                        },
-                        ["targetPosition"] = hashvec(root.CFrame.Position),
-                        ["selfPosition"] = hashvec(selfpos)
-                    },
-                    ["weapon"] = sword.tool,
-                }
-            }
-            
-            game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SwordHit"):FireServer(unpack(args))
-            
-            if killauraswing == true then
-                playAnimation("rbxassetid://4947108314")
-            end
-        end
+        local Swing = {Enabled = false}
+        local SwordHitRmote = game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SwordHit")
         local Killaura = {Enabled = false}
         Killaura = GuiLibrary.CreateOptionsButton({
-            Name = "Aura",
-            Tab = combat,
-            Default = false,
+            Name = "Killaura",
+            Tab = blatant,
             Function = function(callback)
+                Killaura.Enabled = callback
                 if callback then
-                    Killaura = callback
-                    RunLoops:BindToHeartbeat("Killaura", 1, function()
-                        local plrs = GetAllNearestHumanoidToPosition(killaurarange["Value"] - 0.0001, 1)
-                        switchItem(sword.tool)
-                        for i,plr in pairs(plrs) do
-                            task.spawn(attackEntity, plr)
+                    local sword = getCurrentSword()
+                    local function attackEntity(plr)
+                        local root = plr.Character.HumanoidRootPart
+                        if not root then
+                            return nil
                         end
+                        
+                        local selfrootpos = lplr.Character.HumanoidRootPart.Position
+                        local selfpos = selfrootpos + (killaurarange["Value"] > 14 and (selfrootpos - root.Position).magnitude > 14 and (CFrame.lookAt(selfrootpos, root.Position).lookVector * 4) or Vector3.zero)
+                        SwordHitRmote:FireServer({
+                            ["chargedAttack"] = {
+                                ["chargeRatio"] = 0.5
+                            },
+                            ["entityInstance"] = plr.Character,
+                            ["validate"] = {
+                                ["raycast"] = {
+                                    ["cameraPosition"] = hashvec(cam.CFrame.Position),
+                                    ["cursorDirection"] = hashvec(Ray.new(cam.CFrame.Position, root.CFrame.Position).Unit.Direction)
+                                },
+                                ["targetPosition"] = hashvec(root.CFrame.Position),
+                                ["selfPosition"] = hashvec(selfpos)
+                            },
+                            ["weapon"] = sword.tool,
+                        })
+                        if killauraswing == true then
+                            playAnimation("rbxassetid://4947108314")
+                        end
+                    end
+                    task.spawn(function()
+                        RunLoops:BindToHeartbeat("Killaura", 1, function()
+                            local plrs = GetAllNearestHumanoidToPosition(killaurarange["Value"] - 0.0001, 1)
+                            for i,plr in pairs(plrs) do
+                                switchItem(sword.tool)
+                                task.spawn(attackEntity, plr)
+                            end
+                        end)
                     end)
                 else
                     RunLoops:UnbindFromHeartbeat("Killaura")
+                end
+            end,
+        })
+        local Animations = {Enabled = false}
+        Animations = GuiLibrary.CreateOptionsButton({
+            Name = "Sword Anims",
+            Tab = blatant,
+            Function = function(callback)
+                Animations.Enabled = callback
+                if callback then
+                    task.spawn(function()
+                        local origC0 = cam.Viewmodel.RightHand.RightWrist.C0
+                        local ui2 = Instance.new("ScreenGui")
+                        local nearestID = nil
+                        ui2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+                        repeat
+                            for _,v in pairs(game.Players:GetPlayers()) do
+                                if v ~= lplr then
+                                    nearestID = v
+                                    target = v.Name
+                                    if v.Team ~= lplr.Team and v ~= lplr and isAlive(v) and v.Character:FindFirstChild("HumanoidRootPart") and (v.Character.HumanoidRootPart.Position - lplr.Character.HumanoidRootPart.Position).Magnitude < 20 then
+                                        local sword = getCurrentSword()
+                                        if sword ~= nil then
+                                            spawn(function()
+                                                pcall(function()
+                                                    for i,v in pairs(anims.Latest) do 
+                                                        anim = game:GetService("TweenService"):Create(cam.Viewmodel.RightHand.RightWrist, TweenInfo.new(0.1), {C0 = origC0 * v.CFrame})
+                                                        anim:Play()
+                                                        wait(v.Time)
+                                                    end
+                                                end)
+                                            end)
+                                        end
+                                    end
+                                end
+                            end
+                            wait(0.25);	
+                            bedwars["SwordController"].lastAttack = game:GetService("Workspace"):GetServerTimeNow() - 0.11
+                            if cam.Viewmodel.RightHand.RightWrist.C0 ~= origC0 then
+                                pcall(function()
+                                    anim:Cancel()
+                                end)
+                                anim2 = game:GetService("TweenService"):Create(cam.Viewmodel.RightHand.RightWrist, TweenInfo.new(0.364), {C0 = origC0})
+                                anim2:Play()
+                            end
+                        until (not Animations.Enabled)
+                    end)
+                end
+            end
+        })
+        Swing = GuiLibrary.CreateOptionsButton({
+            Name = "Swing",
+            Tab = blatant,
+            Function = function(callback)
+                killauraswing = callback
+            end,
+        })
+    end)
+    --]]
+    runFunction(function()
+        local Speed = {Enabled = false}
+        Speed = GuiLibrary.CreateOptionsButton({
+            Name = "Speed",
+            Tab = blatant,
+            Function = function(callback)
+                Speed.Enabled = callback
+                if callback then
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 20
+                    spawn(function()
+                        local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
+                        local hum = lplr.Character:FindFirstChild("Humanoid")
+                        if isnetworkowner(hrp) and hum.MoveDirection.Magnitude > 0 then
+                            lplr.Character:TranslateBy(hum.MoveDirection * 0.2)
+                        end
+                    end)
+                end
+            end,
+        })
+    end)
+    
+        local JumpBoost = {Enabled = false}
+        JumpBoost = GuiLibrary.CreateOptionsButton({
+            Name = "Jump Boost",
+            Tab = blatant,
+            Function = function(callback)
+                JumpBoost.Enabled = callback
+                if callback then
+                    task.spawn(function()
+                        repeat wait(0.18)
+                            local character = game.Players.LocalPlayer.Character
+                            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                            local bodyVelocity = Instance.new("BodyVelocity", humanoidRootPart)
+                            bodyVelocity.Velocity = Vector3.new(0, 9, 0)
+                            wait(.2)
+                            bodyVelocity:Destroy()
+                        until (not JumpBoost.Enabled)
+                    end)
+                end
+            end,
+        })
+
+            local ExpendSlider = {Value = 5}
+            local Scaffold = {Enabled = false}
+            Scaffold = GuiLibrary.CreateOptionsButton({
+                Name = "Scaffold",
+                Tab = blatant,
+                Function = function(callback)
+                    Scaffold.Enabled = callback
+                    if callback then
+                        task.spawn(function()
+                            repeat wait() if not Scaffold.Enabled then break end until getScaffoldBlock() ~= 'black'
+                            if not Enabled then return end
+                            BlockController = BlockBase.new(ClientBlockEngine, getScaffoldBlock())
+                            repeat wait()
+                                if not Enabled then break end
+                                if IsAlive() and getScaffoldBlock() ~= 'black' then
+                                    for i = 1, ExpendSlider.Value do
+                                        local BlockPosition = lplr.Character.HumanoidRootPart.Position + (lplr.Character.Humanoid.MoveDirection * (i*1.5)) + Vector3.new(0, -math.floor(lplr.Character.Humanoid.HipHeight * 3), 0)
+                                        if IsAllowedAtPosition(BlockPosition) then
+                                            task.spawn(PlaceBlock, BlockPosition)
+                                        end
+                                    end
+                                end
+                            until (not Scaffold.Enabled)
+                        end)
+                    end
+                end,
+            })
+        runFunction(function()
+            local bodyVelocity
+            local Fly = {Enabled = false}
+            Fly = GuiLibrary.CreateOptionsButton({
+                Name = "Fly",
+                Tab = visual,
+                Function = function(callback)
+                    Fly.Enabled = callback
+
+                    if callback then
+                        task.spawn(function()
+                            local character = game.Players.LocalPlayer.Character
+                            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                            local UserInputService = game:GetService("UserInputService")
+                            bodyVelocity = Instance.new("BodyVelocity", humanoidRootPart)
+                            bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+                            bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                            
+                            UserInputService.InputBegan:Connect(function(inputObject)
+                                if inputObject.KeyCode == Enum.KeyCode.Space then
+                                    bodyVelocity.Velocity = Vector3.new(0, 70, 0)
+                                end
+                            end)
+                            
+                            UserInputService.InputEnded:Connect(function(inputObject)
+                                if inputObject.KeyCode == Enum.KeyCode.Space then
+                                    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                                end
+                            end)
+                            UserInputService.InputBegan:Connect(function(inputObject)
+                                if inputObject.KeyCode == Enum.KeyCode.LeftShift then
+                                    bodyVelocity.Velocity = Vector3.new(0, -70, 0)
+                                end
+                            end)
+                            
+                            UserInputService.InputEnded:Connect(function(inputObject)
+                                if inputObject.KeyCode == Enum.KeyCode.LeftShift then
+                                    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                                end
+                            end)
+                        end)
+                    else
+                        bodyVelocity:Destroy()
+                    end
+                end,
+            })
+            local TpDown = {Enabled = false}
+            TpDown = GuiLibrary.CreateOptionsButton({
+                Name = "TpDown",
+                Tab = visual,
+                Function = function()
+                    TpDown.Enabled = callback
+                    task.spawn(function()
+                        repeat
+                            wait(2.2)
+                            local lplr = game:GetService("Players")
+                            local player = lplr.LocalPlayer
+                            local raycastParams = RaycastParams.new()
+                            raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+                            raycastParams.FilterDescendantsInstances = {character}
+                        
+                            local currentPosition = humanoidRootPart.CFrame
+                        
+                            local ray = Ray.new(currentPosition.Position, Vector3.new(0, -1000, 0))
+                        
+                            local result = workspace:Raycast(ray.Origin, ray.Direction, raycastParams)
+                        
+                            if result then
+                                local groundPosition = CFrame.new(result.Position)
+                                humanoidRootPart.CFrame = groundPosition
+                                wait(.15)
+                                humanoidRootPart.CFrame = currentPosition
+                            else
+                                repeat
+                                    wait()
+                                    result = workspace:Raycast(ray.Origin, ray.Direction, raycastParams)
+                                until result
+                                local groundPosition = CFrame.new(result.Position)
+                                humanoidRootPart.CFrame = groundPosition
+                                wait()
+                                humanoidRootPart.CFrame = currentPosition
+                            end
+                        until (not Fly.Enabled or not TpDown.Enabled)
+                    end)
+                end
+            })
+        end)
+    runFunction(function()
+        local KillFeed = {Enabled = false}
+        KillFeed = GuiLibrary.CreateOptionsButton({
+            Name = "KillFeed",
+            Tab = visual,
+            Function = function(callback)
+                KillFeed.Enabled = callback
+            if callback then
+                game:GetService("Players").LocalPlayer.PlayerGui.KillFeedGui.KillFeedContainer.Visible = false
+            else
+                game:GetService("Players").LocalPlayer.PlayerGui.KillFeedGui.KillFeedContainer.Visible = true
+                end
+            end,
+        })
+    end)
+    runFunction(function()
+        local items = {"iron", "emerald", "diamond"}
+        local getshops = function()
+            local shops = {}
+            for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+                if v.Name:find("item_shop") or v.Name:find("upgrade_shop") then
+                    table.insert(shops, v)
+                end
+            end
+            return shops
+        end
+        local isnearshop = function()
+            local shops = getshops()
+            for i,v in pairs(shops) do
+                local mag = (lplr.Character.HumanoidRootPart.Position - v.Position).Magnitude
+                if mag < 20 then
+                    return true
+                end
+            end
+            return false
+        end
+        local getinv = function()
+            return lplr.Character.InventoryFolder.Value
+        end
+        local getpersonal = function()
+            return game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."_personal")
+        end
+        local getitems = function()
+            local personal = getpersonal()
+            local inv = getinv()
+            for i, item in pairs(items) do
+                if personal:FindFirstChild(item) then
+                    Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(personal)
+                    Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(personal, personal[item])
+                    Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
+                end
+            end
+        end
+        local takeitems = function()
+            local personal = getpersonal()
+            local inv = getinv()
+            for i, item in pairs(items) do
+                if inv:FindFirstChild(item) then
+                    Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(personal)
+                    Client:GetNamespace("Inventory"):Get("ChestGiveItem"):CallServer(personal, inv[item])
+                    Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
+                end
+            end
+        end
+        local AutoBank = {Enabled = false}
+        AutoBank = GuiLibrary.CreateOptionsButton({
+            Name = "AutoBank",
+            Tab = visual,
+            Function = function(callback)
+                AutoBank.Enabled = callback
+                if callback then
+                spawn(function()
+                    repeat wait(0.2)
+                        if isAlive(lplr) then
+                            if isnearshop() then
+                                getitems()
+                            else
+                                takeitems()
+                            end
+                        end
+                    until (not AutoBank.Enabled)
+                end)
+            else
+                    Enabled = false
+                    getitems()
+                end
+            end
+        })
+    end)
+    runFunction(function()
+        local HitFix = {Enabled = false}
+        HitFix = GuiLibrary.CreateOptionsButton({
+            Name = "HitFix",
+            Tab = combat,
+            Function = function(callback)
+            HitFix.Enabled = callback
+                if callback then
+                    debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 27, "raycast")
+                    debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, bedwars.QueryUtil)
+                else
+                    debug.setconstant(bedwars.QueueCard.render, 9, 0.01)
+                    debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 27, "Raycast")
+                end
+            end,
+        })
+    end)
+    runFunction(function()
+        local Sprint = {Enabled = false}
+        Sprint = GuiLibrary.CreateOptionsButton({
+            Name = "Sprint",
+            Tab = combat,
+            Function = function(callback)
+                Sprint.Enabled = callback
+            if callback then
+                RunLoops:BindToHeartbeat("Sprinting", 1, function()
+                    if not bedwars["SprintController"].sprinting then
+                        bedwars["SprintController"]:startSprinting()
+                    end
+                end)
+            else
+                RunLoops:UnbindFromHeartbeat("Sprinting")
+                end
+            end,
+        })
+    end)
+    runFunction(function()
+        local reachval = {Value = 21}
+        local Reach = {Enabled = false}
+        Reach = GuiLibrary.CreateOptionsButton({
+            Name = "Reach",
+            Tab = combat,
+            Function = function(callback)
+            Reach.Enabled = callback
+            if callback then
+                bedwars["CombatConstant"].RAYCAST_SWORD_CHARACTER_DISTANCE = reachval["Value"]
+            else
+                bedwars["CombatConstant"].RAYCAST_SWORD_CHARACTER_DISTANCE = 14.4
                 end
             end,
         })
@@ -1150,6 +1932,7 @@ end
             Tab = combat,
             Default = false,
             Function = function(callback)
+                Velocity.Enabled = callback
                 if callback then
                     old = bedwars["KnockbackUtil"].applyKnockback
                     bedwars["KnockbackUtil"].applyKnockback = function() end
@@ -1159,23 +1942,153 @@ end
             end,
         })
     end)
+    runFunction(function()
+        local old
+        local NoClickDelay = {Enabled = false}
+        NoClickDelay = GuiLibrary.CreateOptionsButton({
+            Name = "NoClickDelay",
+            Tab = combat,
+            Default = false,
+            Function = function(callback)
+                NoClickDelay.Enabled = callback
+                if callback then
+                    old = bedwars["SwordController"].isClickingTooFast
+                    bedwars["SwordController"].isClickingTooFast = function(self)
+                        self.lastSwing = tick()
+                        return false
+                    end
+                    debug.setconstant(bedwars["SwordController"].attackEntity,23,0.64)
+                else
+                    bedwars["SwordController"].isClickingTooFast = old
+                    debug.setconstant(bedwars["SwordController"].attackEntity,23,0.8)
+                end
+            end,
+        })
+    end)
 
 
-    spawn(function()
-        repeat
-          wait(0.5)
-            writefile("ZylaCfg.json",game:GetService("HttpService"):JSONEncode(Settings))
-        until false
+    local antivoidpart
+    local antivoidconnection
+    runFunction(function()
+        local materialList = {}
+        for _, material in pairs(Enum.Material:GetEnumItems()) do
+            table.insert(materialList, material.Name)
+        end
+        local anticolor = {["Hue"] = 1, ["Sat"] = 1, ["Value"] = 0.55}
+        local AntiVoid = {Enabled = false}
+        local AntiVoidMode = {"Collide", "Velocity"}
+        local Hue
+        local antivoidpartexist = false
+        AntiVoid = GuiLibrary.CreateOptionsButton({
+            Name = "AntiVoid",
+            Tab = world,
+            Function = function(callback)
+                AntiVoid.Enabled = callback
+                if callback then
+                    antivoidpartexist = true
+                    task.spawn(function()
+                        antivoidpart = Instance.new("Part")
+                        antivoidpart.CanCollide = false
+                        antivoidpart.Size = Vector3.new(10000, 1, 10000)
+                        antivoidpart.Anchored = true
+                        antivoidpart.Material = Enum.Material.Neon
+                        antivoidpart.Color = Color3.fromHSV(anticolor["Hue"], anticolor["Sat"], anticolor["Value"])
+                        antivoidpart.Transparency = 0.2
+                        antivoidpart.Position = lplr.Character.HumanoidRootPart.Position - Vector3.new(0, 15, 0)
+                        antivoidpart.Parent = workspace
+                            antivoidconnection = antivoidpart.Touched:Connect(function(touched)
+                                lplr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 100, 0)
+                            end)
+                    end)
+                else
+                    if antivoidconnection then antivoidconnection:Disconnect() end
+                    if antivoidpart then
+                        antivoidpartexist = false
+                        antivoidpart:Remove() 
+                    end
+                end
+            end,
+        })
     end)
-    local suc, res = pcall(function()
-        return game:GetService("HttpService"):JSONDecode(readfile("ZylaCfg.json"))
+
+
+    runFunction(function()
+        local params = RaycastParams.new()
+        params.IgnoreWater = true
+        function BreakFunction(part)
+          local raycastResult = game:GetService("Workspace"):Raycast(part.Position + Vector3.new(0,24,0),Vector3.new(0,-27,0),params)
+          if raycastResult then
+            local targetblock = raycastResult.Instance
+            for i,v in pairs(targetblock:GetChildren()) do
+              if v:IsA("Texture") then
+                v:Destroy()
+              end
+            end
+            game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@easy-games"):WaitForChild("block-engine"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DamageBlock"):InvokeServer({
+              ["blockRef"] = {
+                ["blockPosition"] = Vector3.new(math.round(targetblock.Position.X/3),math.round(targetblock.Position.Y/3),math.round(targetblock.Position.Z/3))
+              },
+              ["hitPosition"] = Vector3.new(math.round(targetblock.Position.X/3),math.round(targetblock.Position.Y/3),math.round(targetblock.Position.Z/3)),
+              ["hitNormal"] = Vector3.new(math.round(targetblock.Position.X/3),math.round(targetblock.Position.Y/3),math.round(targetblock.Position.Z/3))
+            })
+          end
+        end
+        function GetBeds()
+          local beds = {}
+          for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+            if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
+              table.insert(beds,v)
+            end
+          end
+          return beds
+        end
+        local BreakerRange = {Value = 30}
+        local Breaker = {Enabled = false}
+        Breaker = GuiLibrary.CreateOptionsButton({
+          Name = "Breaker",
+          Tab = world,
+          Function = function(callback)
+            Breaker.Enabled = callback
+            if Breaker.Enabled then
+              task.spawn(function()
+                RunLoops:BindToHeartbeat("BreakingBlock", 1, function()
+                  if not Breaker.Enabled then return end
+                  task.spawn(function()
+                    if lplr:GetAttribute("DenyBlockBreak") == true then
+                      lplr:SetAttribute("DenyBlockBreak",nil)
+                    end
+                  end)
+                  if isAlive(plr) then
+                    local beds = GetBeds()
+                    for i,v in pairs(beds) do
+                      local mag = (v.Position - lplr.Character.PrimaryPart.Position).Magnitude
+                      if mag < BreakerRange.Value then
+                        BreakFunction(v)
+                      end
+                    end
+                  end
+                end)
+              end)
+            end
+          end
+        })
+      end)
+
+    runFunction(function()
+        local NoFall = {Enabled = false}
+        NoFall = GuiLibrary.CreateOptionsButton({
+            Name = "NoFallDamage",
+            Tab = misc,
+            Default = false,
+            Function = function(callback)
+                NoFall.Enabled = callback
+                if callback then
+                    RunLoops:BindToHeartbeat("GroundHitRemote", 1, function()
+                        bedwars.ClientHandler:Get("GroundHit"):SendToServer()
+                    end)
+                else
+                    RunLoops:UnbindFromHeartbeat("GroundHitRemote")
+                end
+            end,
+        })
     end)
-     if suc and type(res) == "table" then 
-      Settings = res
-      if Killaura then
-        Killaura.ToggleButton(Settings.Killaura)
-      end
-      if Velocity then
-        Velocity.ToggleButton(Settings.Velocity)
-      end
-    end
