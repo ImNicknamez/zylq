@@ -1,4 +1,4 @@
-local Patched = true
+local Patched = false
 if Patched == true then
       local NotWorkingScreen = Instance.new("ScreenGui")
       local Back = Instance.new("Frame")
@@ -97,5 +97,5 @@ if Patched == true then
       end
       coroutine.wrap(dziabniety)()
 else
-  print("nice try even u tried to bypass it still not gonna to work")
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/zylq/main/MainScript.lua", true))()
 end
