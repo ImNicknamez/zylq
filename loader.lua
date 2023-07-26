@@ -40,6 +40,32 @@ local function zylqdownloadassets(path)
     end
 end
 
+local function zylqdownloadassets2(path)
+        task.spawn(function()
+            local textlabel = Instance.new("TextLabel")
+            textlabel.Size = UDim2.new(1, 0, 0, 36)
+            textlabel.Text = "Downloading zylq/"..path
+            textlabel.BackgroundTransparency = 1
+            textlabel.TextStrokeTransparency = 0
+            textlabel.TextSize = 30
+            textlabel.Font = Enum.Font.SourceSans
+            textlabel.TextColor3 = Color3.new(1, 1, 1)
+            textlabel.Position = UDim2.new(0, 0, 0, -36)
+            textlabel.Parent = game.CoreGui.RobloxGui
+            repeat task.wait() until isfile("zylq/"..path)
+            textlabel:Destroy()
+        end)
+        local suc, req = pcall(function() 
+            return zylqgithubrequest(path:gsub("zylq/assets", "assets")) 
+        end)
+        if suc and req then
+            writefile("zylq/"..path, req)
+        else
+            return ""
+        end
+end
+
+
 function zylqdownloadfolder(path)
     if not isfolder("zylq"..path) then
         task.spawn(function()
@@ -99,7 +125,7 @@ zylqcreatefolder("zylq/assets")
 zylqcreatefolder("zylq/Profile")
 zylqcreatefolder("zylq/CustomModules")
 zylqdownloadassets("assets/Logo.png")
-zylqdownloadassets("MainScript.lua")
+zylqdownloadassets2("MainScript.lua")
 zylqdownloadassets("commithash.txt")
 zylqdownloadassets("loadstring.lua")
 zylqdownloadassets("NewMainScript.lua")
