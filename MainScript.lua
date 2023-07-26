@@ -1,4 +1,4 @@
---//credits monia//configsystem,function and whitelist//7granddad//vapentity//i will protect it soons in next update
+--worse thing i ever made 
 local GuiLibrary = {
     Settings = {}
 }
