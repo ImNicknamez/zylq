@@ -1002,101 +1002,7 @@ end
     local InventoryUtil = require(game:GetService("ReplicatedStorage").TS.inventory["inventory-util"]).InventoryUtil
     local howmuchihateblacks = math.huge
     
-    local IsAlive = function(blackmonkeyboy)
-        blackmonkeyboy = blackmonkeyboy or lplr
-        return blackmonkeyboy and tostring(blackmonkeyboy.Team) ~= 'Spectators' and blackmonkeyboy.Character ~= nil and blackmonkeyboy.Character:FindFirstChild('HumanoidRootPart') and blackmonkeyboy.Character:FindFirstChild("Humanoid") and blackmonkeyboy.Character.Humanoid.Health > 0 or false 
-    end
-    
-    local GetInventory = function(blackboy)
-        blackboy = blackboy or lplr
-        return InventoryUtil.getInventory(blackboy)
-    end
-    
-    local getRemoteName = function(black, index)
-        local tableTargetted = debug.getconstants(black[index])
-        local iSaved = nil
-        for i, v in pairs(tableTargetted) do
-            if v == 'Client' then iSaved = i+1 end
-            if iSaved ~= nil then return tostring(tableTargetted[iSaved]) end
-        end
-        return nil
-    end
-    
-    local GetBestSword = function()
-        local dmg = 0
-        local sword = nil
-        for i, v in pairs(GetInventory().items) do
-            if v.itemType:lower():find('sword') or v.itemType:lower():find('scythe') or v.itemType:lower():find('blade') then
-                if ItemTable[v.itemType].sword.damage > dmg then
-                    sword = v.tool
-                end
-            end
-        end
-        return sword
-    end
-    
-    local getScaffoldBlock = function()
-        local Inventory = GetInventory()
-        for i, v in pairs(Inventory.items) do
-            if ItemTable[v.itemType].block ~= nil then return v.itemType end
-        end
-        return 'black'
-    end
-    
-    local setToY = 0
-    local blackie = nil
-    
-    local setMotionY = function(value, set)
-        setToY = value
-        if set then
-            blackie = lplr.Character.Humanoid.Jumping:Connect(function(IsJumping)
-                print(IsJumping)
-                if IsJumping then
-                    print('jumped')
-                    lplr.Character.HumanoidRootPart.Velocity += Vector3.new(0, setToY*500, 0)
-                end
-            end)
-        else
-            if blackie ~= nil then blackie:Disconnect() end
-        end
-    end
-    
-    local ClientBlockEngine = require(lplr.PlayerScripts.TS.lib["block-engine"]["client-block-engine"]).ClientBlockEngine
-    local BlockBase = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["block-engine"].out.client.placement["block-placer"]).BlockPlacer
-    local BlockUtils = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["block-engine"].out).BlockEngine
-    local BlockController = BlockBase.new(ClientBlockEngine, getScaffoldBlock())
-    
-    local returnScaffoldPosition = function(vector)
-        return Vector3.new(vector.X/3, vector.Y/3, vector.Z/3)
-    end
-    
-    local IsAllowedAtPosition = function(position)
-        return BlockUtils:isAllowedPlacement(lplr, getScaffoldBlock(), Vector3.new(position.X, position.Y, position.Z))
-    end
-    
-    local PlaceBlock = function(position)
-        return BlockController:placeBlock(returnScaffoldPosition(position))
-    end
-    
-    local HashVector = function(black)
-        return {value = black}
-    end    
-    
-    local KnitClient = debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
-    local Client = require(game:GetService("ReplicatedStorage").TS.remotes).default.Client
-    local HitRemoteName = getRemoteName(getmetatable(KnitClient.Controllers.SwordController), 'attackEntity')
-    local HitRemote = game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].net.out._NetManaged[HitRemoteName]
-    local kbtable = debug.getupvalue(require(game:GetService("ReplicatedStorage").TS.damage["knockback-util"]).KnockbackUtil.calculateKnockbackVelocity, 1)
-    
-    local function getwoolamount()
-        local value = 0
-        for i,v in pairs(lplr.Character:FindFirstChild("InventoryFolder").Value:GetChildren()) do
-            if string.lower(v.Name):find("wool") then
-                value = value + v:GetAttribute("Amount")
-            end
-        end
-        return value
-    end      
+  
     function GuiLibrary.CreateOptionsButton(argstable) --> you can add only combat, blatant, visual, misc, world <--
         local TogFunction = {} 
         local tname = argstable["Name"]
@@ -1677,22 +1583,7 @@ end
                 Function = function(callback)
                     Scaffold.Enabled = callback
                     if callback then
-                        task.spawn(function()
-                            repeat wait() if not Scaffold.Enabled then break end until getScaffoldBlock() ~= 'black'
-                            if not Enabled then return end
-                            BlockController = BlockBase.new(ClientBlockEngine, getScaffoldBlock())
-                            repeat wait()
-                                if not Enabled then break end
-                                if IsAlive() and getScaffoldBlock() ~= 'black' then
-                                    for i = 1, ExpendSlider.Value do
-                                        local BlockPosition = lplr.Character.HumanoidRootPart.Position + (lplr.Character.Humanoid.MoveDirection * (i*1.5)) + Vector3.new(0, -math.floor(lplr.Character.Humanoid.HipHeight * 3), 0)
-                                        if IsAllowedAtPosition(BlockPosition) then
-                                            task.spawn(PlaceBlock, BlockPosition)
-                                        end
-                                    end
-                                end
-                            until (not Scaffold.Enabled)
-                        end)
+			print("doesnt even work anyways")
                     end
                 end,
             })
