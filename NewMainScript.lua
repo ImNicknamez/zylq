@@ -1,4 +1,72 @@
 local Patched = false
+local Notification2 = Instance.new("ScreenGui")
+Notification2.Name = "Notification"
+Notification2.Enabled = false
+Notification2.Parent = game.CoreGui
+Notification2.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local Frame = Instance.new("Frame")
+Frame.Parent = Notification2
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.000
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.83291769, 0, 0.0447058827, 0)
+Frame.Size = UDim2.new(0.170822948, 0, 0.912941158, 0)
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.Parent = Frame
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+UIListLayout.Padding = UDim.new(0, 2)
+function notify(text, time)
+      local Frame_2 = Instance.new("Frame")
+    Frame_2.Parent = Frame
+    Frame_2.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+    Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Frame_2.BorderSizePixel = 0
+    Frame_2.Position = UDim2.new(0.835982263, 0, 0.81411767, 0)
+    Frame_2.Size = UDim2.new(0, 10, 0, 111)
+    
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Frame_2
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Position = UDim2.new(-0.00253273291, 0, -0.00416666688, 0)
+    TextLabel.Size = UDim2.new(0, 270, 0, 39)
+    TextLabel.Font = Enum.Font.SourceSansSemibold
+    TextLabel.Text = "Zylq"
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 25.000
+    
+    local TextLabel_2 = Instance.new("TextLabel")
+    TextLabel_2.Parent = Frame_2
+    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.BackgroundTransparency = 1.000
+    TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_2.BorderSizePixel = 0
+    TextLabel_2.Position = UDim2.new(-0.00253273291, 0, 0.464301586, 0)
+    TextLabel_2.Size = UDim2.new(0, 270, 0, 39)
+    TextLabel_2.Font = Enum.Font.SourceSans
+    TextLabel_2.Text = text
+    TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.TextSize = 25.000
+
+    local function EXNGA_fake_script() -- Frame.LocalScript 
+        local script = Instance.new('LocalScript', Frame_2)
+
+        local TweenService = game:GetService("TweenService")
+        
+        script.Parent:TweenSize(UDim2.new(0, 270, 0, 111), Enum.EasingDirection.In, Enum.EasingStyle.Sine, 0.4)
+        wait(time)
+        script.Parent:TweenSize(UDim2.new(0, 10, 0, 111), Enum.EasingDirection.In, Enum.EasingStyle.Sine, 0.4)
+        wait(0.4)
+        Frame_2:Destroy()
+    end
+    coroutine.wrap(EXNGA_fake_script)()
+end
 if Patched == true then
       local NotWorkingScreen = Instance.new("ScreenGui")
       local Back = Instance.new("Frame")
@@ -97,5 +165,6 @@ if Patched == true then
       end
       coroutine.wrap(dziabniety)()
 else
+      notify("Zylq Aura Has Patched\n pls using vape aura temporary", 3)
   loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/zylq/main/MainScript.lua", true))()
 end
